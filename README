@@ -1,0 +1,27 @@
+EmbeddableDocument is for declaring that a document can be embedded. Example:
+
+  class Author
+    include MongoMapper::Document
+    include MongoMapper::EmbeddableDocument
+    
+    key :name
+    key :age, Integer
+    key :bio
+    
+    embeddable_attributes :name, :age
+  end
+
+  celine          = Author.find_by_name 'Ferdinand Celine'
+  embedded_celine = celine.as_embedded
+  
+  embedded_celine.name              # => "Ferdinand Celine"
+  embedded_celine.respond_to? :bio  # => false
+  embedded_celine.original_document # => celine
+  embedded_celine.original_id       # => celine.id
+  embedded_celine.class             # => Author::Embedded
+  
+Of course, you can just do:
+
+  Author::Embedded.new :name => "Henry Miller"
+  
+  

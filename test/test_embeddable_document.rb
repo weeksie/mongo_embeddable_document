@@ -18,7 +18,7 @@ class TestEmbeddableDocument < Test::Unit::TestCase
     embedded_attributes :fliff
   end
   
-  context "a MongoMapper::Document that HasEmbedded" do
+  context "a MongoMapper::Document that is an EmbeddableDocument" do
     
     should "create an embedded class" do
       embedded = Fnord::Embedded.new

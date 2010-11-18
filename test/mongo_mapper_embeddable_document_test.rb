@@ -5,7 +5,7 @@ require 'mocha'
 require 'mongo_mapper'
 require 'mongo_mapper_embeddable_document'
 
-class MongoMapperEmbeddableDocumentTest < Test::Unit::TestCase
+class TestEmbeddableDocument < Test::Unit::TestCase
   include Shoulda
   
   class ::Fnord

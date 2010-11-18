@@ -22,8 +22,7 @@ module MongoMapper
 
       def define_embedded_class
         base_class     = self
-        embedded_name  = "Embedded"
-        embedded_class = const_set embedded_name, Class.new
+        embedded_class = const_set "Embedded", Class.new
         embedded_class.send :include, MongoMapper::EmbeddedDocument
         
         embedded_class.class_eval do 
@@ -31,7 +30,7 @@ module MongoMapper
             base_class
           end
           
-          define_method :parent_document do |*args|
+          define_method :original_document do |*args|
             base_class.find original_id
           end
         end

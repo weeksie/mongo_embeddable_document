@@ -3,7 +3,7 @@ require 'test/unit'
 require 'shoulda'
 require 'mocha'
 require 'mongo_mapper'
-require 'embeddable_document'
+require 'mongo_mapper_embeddable_document'
 
 class TestEmbeddableDocument < Test::Unit::TestCase
   include Shoulda

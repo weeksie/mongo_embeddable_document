@@ -4,7 +4,7 @@ require 'rake'
 begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
-    gem.name = "mongo_embeddable_document"
+    gem.name = "mongo_mapper_embeddable_document"
     gem.summary = "Declarative automatic embedded document for MongoMapper"
     gem.description = "Allows you to declaratively describe the embedded version of a Document for MongoMapper"
     gem.authors = ["Scotty Weeks"]

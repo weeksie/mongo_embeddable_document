@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Scotty Weeks"]
-  s.date = %q{2010-11-23}
+  s.date = %q{2010-11-29}
   s.description = %q{Allows you to declaratively describe the embedded version of a Document for MongoMapper}
   s.email = %q{scott.weeks@gmail.com}
   s.extra_rdoc_files = [
@@ -20,15 +20,14 @@ Gem::Specification.new do |s|
     "Rakefile",
     "VERSION",
     "lib/mongo_mapper_embeddable_document.rb",
-    "test/mongo_mapper_embeddable_document_test.rb",
-    "test/test_mongo_mapper_embeddable_document.rb"
+    "mongo_mapper_embeddable_document.gemspec",
+    "test/mongo_mapper_embeddable_document_test.rb"
   ]
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.3.7}
   s.summary = %q{Declarative automatic embedded document for MongoMapper}
   s.test_files = [
-    "test/mongo_mapper_embeddable_document_test.rb",
-    "test/test_mongo_mapper_embeddable_document.rb"
+    "test/mongo_mapper_embeddable_document_test.rb"
   ]
 
   if s.respond_to? :specification_version then

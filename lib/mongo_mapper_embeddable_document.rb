@@ -17,7 +17,7 @@ module MongoMapper
           if keys[attr]
             embedded_class.send :key, attr, keys[attr].type, keys[attr].options
           else
-            embedded_class.send :key
+            embedded_class.send :key, attr
           end
         end
         embedded_class.send :key, :original_id, ObjectId

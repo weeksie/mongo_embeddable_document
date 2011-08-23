@@ -14,7 +14,11 @@ module MongoMapper
       def embedded_attributes(*args)
         embedded_class = "::#{self.name}::Embedded".constantize
         args.each do |attr|
-          embedded_class.send :key, attr, keys[attr].type, keys[attr].options
+          if keys[attr]
+            embedded_class.send :key, attr, keys[attr].type, keys[attr].options
+          else
+            embedded_class.send :key
+          end
         end
         embedded_class.send :key, :original_id, ObjectId
       end

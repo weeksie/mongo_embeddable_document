@@ -36,6 +36,10 @@ class TestEmbeddableDocument < Test::Unit::TestCase
       assert_equal f.fliff, ef.fliff
     end
     
+    should "return the embedded class of the base class" do
+      assert_equal Fnord::Embedded, Fnord.embedded_class
+    end
+    
     should "call find on parent document with original id" do
       f  = Fnord.new :fliff => "sultan"
       ef = f.as_embedded

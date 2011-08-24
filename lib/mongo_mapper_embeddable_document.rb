@@ -39,6 +39,10 @@ module MongoMapper
           end
         end
         
+        def embedded_class
+          "::#{self.name}::Embedded".constantize
+        end
+        
       end
     end
     

@@ -37,12 +37,11 @@ module MongoMapper
           define_method :original_document do |*args|
             base_class.find original_id
           end
-        end
-        
-        def embedded_class
-          "::#{self.name}::Embedded".constantize
-        end
-        
+        end  
+      end
+      
+      def embedded_class
+        "::#{self.name}::Embedded".constantize
       end
     end
     

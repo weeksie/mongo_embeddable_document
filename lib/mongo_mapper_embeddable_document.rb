@@ -51,7 +51,7 @@ module MongoMapper
       def as_embedded
         embedded_object = self.class.embedded_class.new
         self.class.embedded_class.keys.reject{ |k,_| k =~ /^_id|original_id$/ }.each do |key, value|
-          embedded_object.send "#{key}=", self.send(key.to_sym) if self.respond_to?(key.to_sym)
+          embedded_object.send "#{key}=", self.send(key.to_sym) if embedded_object.respond_to?(key.to_sym)
         end
         embedded_object.original_id = id
         embedded_object

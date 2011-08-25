@@ -15,7 +15,13 @@ class TestEmbeddableDocument < Test::Unit::TestCase
     key :fliff
     key :radness
     
-    embedded_attributes :fliff
+    key :pickle, Integer, :required => true
+    
+    embedded_attributes :fliff, :pickle, :cheese
+    
+    def cheese
+      "FNORD!"
+    end
   end
   
   context "a MongoMapper::Document that is an EmbeddableDocument" do
@@ -29,11 +35,13 @@ class TestEmbeddableDocument < Test::Unit::TestCase
     end
     
     should "return an embedded version of the base class" do
-      f  = Fnord.new :fliff => "SULTAN"
+      f  = Fnord.new :fliff => "SULTAN", :pickle => 1
       ef = f.as_embedded
       
       assert_equal f.id, ef.original_id
       assert_equal f.fliff, ef.fliff
+      assert_equal f.pickle, ef.pickle
+      assert_equal f.cheese, ef.cheese
     end
     
     should "return the embedded class of the base class" do

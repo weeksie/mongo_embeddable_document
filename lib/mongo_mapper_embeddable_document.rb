@@ -12,7 +12,6 @@ module MongoMapper
       # takes a list of symbols that define the keys that should be
       # passed to the embedded document.
       def embedded_attributes(*args)
-        embedded_class = "::#{self.name}::Embedded".constantize
         args.each do |attr|
           if keys[attr]
             embedded_class.send :key, attr, keys[attr].type, keys[attr].options
@@ -41,7 +40,7 @@ module MongoMapper
       end
       
       def embedded_class
-        "::#{self.name}::Embedded".constantize
+        @embedded_class ||= "::#{self.name}::Embedded".constantize
       end
     end
     

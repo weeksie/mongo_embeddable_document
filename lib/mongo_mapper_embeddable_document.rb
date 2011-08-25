@@ -13,8 +13,12 @@ module MongoMapper
       # passed to the embedded document.
       def embedded_attributes(*args)
         args.each do |attr|
-          options = keys[attr.to_s].options.reject{ |k,_| k.to_s =~ /index/ }
-          embedded_class.send :key, attr, keys[attr.to_s].type, options
+          if keys[attr.to_s]
+            options = keys[attr.to_s].options.reject{ |k,_| k.to_s =~ /index/ }
+            embedded_class.send :key, attr, keys[attr.to_s].type, options
+          else
+            embedded_class.send :key, attr
+          end
         end
         embedded_class.send :key, :original_id, ObjectId
       end

@@ -13,8 +13,8 @@ module MongoMapper
       # passed to the embedded document.
       def embedded_attributes(*args)
         args.each do |attr|
-          if keys[attr]
-            embedded_class.send :key, attr, keys[attr].type, keys[attr].options
+          if keys[attr.to_s]
+            embedded_class.send :key, attr, keys[attr.to_s].type, keys[attr.to_s].options
           else
             embedded_class.send :key, attr
           end
@@ -48,16 +48,14 @@ module MongoMapper
       
       # returns an embedded version of the main document
       def as_embedded
-        embedded_class  = "::#{self.class.name}::Embedded".constantize
-        embedded_object = embedded_class.new
-        embedded_class.keys.reject{ |k,_| k =~ /_id|original_id/ }.each do |key, value|
+        embedded_object = self.class.embedded_class.new
+        self.class.embedded_class.keys.reject{ |k,_| k =~ /^_id|original_id$/ }.each do |key, value|
           embedded_object.send "#{key}=", self.send(key.to_sym) if self.respond_to?(key.to_sym)
         end
         embedded_object.original_id = id
         embedded_object
       end
     end
-    
     
   end
 end

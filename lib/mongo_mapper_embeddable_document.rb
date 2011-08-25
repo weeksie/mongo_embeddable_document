@@ -24,11 +24,11 @@ module MongoMapper
       
 
       def define_embedded_class
-        base_class     = self
-        embedded_class = const_set "Embedded", Class.new
-        embedded_class.send :include, MongoMapper::EmbeddedDocument
+        base_class = self
+        embedded   = const_set "Embedded", Class.new
+        embedded.send :include, MongoMapper::EmbeddedDocument
         
-        embedded_class.class_eval do 
+        embedded.class_eval do 
           define_method :parent_class do
             base_class
           end
@@ -38,7 +38,7 @@ module MongoMapper
           end
         end  
       end
-      
+
       def embedded_class
         @embedded_class ||= "::#{self.name}::Embedded".constantize
       end

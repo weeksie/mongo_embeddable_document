@@ -4,6 +4,8 @@ require 'shoulda'
 require 'mocha'
 require 'mongo_mapper'
 require 'mongo_mapper_embeddable_document'
+require 'example_class'
+
 
 class TestEmbeddableDocument < Test::Unit::TestCase
   include Shoulda
@@ -17,7 +19,13 @@ class TestEmbeddableDocument < Test::Unit::TestCase
     
     key :pickle, Integer, :required => true
     
-    embedded_attributes :fliff, :pickle, :cheese
+    embedded_attributes :fliff, :pickle, :cheese, :flimflam
+    
+    # attribute on embedded class that doesn't exist on the parent.
+    class Embedded
+      key :flimflam
+    end
+    
     
     def cheese
       "FNORD!"
@@ -37,11 +45,13 @@ class TestEmbeddableDocument < Test::Unit::TestCase
     should "return an embedded version of the base class" do
       f  = Fnord.new :fliff => "SULTAN", :pickle => 1
       ef = f.as_embedded
-      
+
       assert_equal f.id, ef.original_id
       assert_equal f.fliff, ef.fliff
       assert_equal f.pickle, ef.pickle
       assert_equal f.cheese, ef.cheese
+      assert ef.respond_to?(:flimflam)
+      assert !f.respond_to?(:flimflam)
     end
     
     should "return the embedded class of the base class" do
@@ -51,9 +61,16 @@ class TestEmbeddableDocument < Test::Unit::TestCase
     should "call find on parent document with original id" do
       f  = Fnord.new :fliff => "sultan"
       ef = f.as_embedded
-      
       Fnord.expects(:find).with f.id
       ef.original_document
+    end
+    
+    should "handle embedded attributes that aren't present on the parent class" do
+      assert_nothing_raised do
+        f  = ExampleClass.new :name => "Ed"
+        ef = f.as_embedded
+        ef.karate = { :karate => "flimflam" }
+      end
     end
     
   end
